@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from appointment_user.views import AppointmentUserViewSet
+from appointment_system.user.views import AppointmentUserViewSet
 
 router = routers.SimpleRouter()
 

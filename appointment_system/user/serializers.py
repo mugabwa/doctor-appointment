@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from appointment_user.models import AppointmentUser
+from appointment_system.user.models import AppointmentUser
 
 class AppointmentUserSerializer(serializers.ModelSerializer):
     """

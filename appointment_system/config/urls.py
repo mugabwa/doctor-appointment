@@ -20,6 +20,7 @@ from django.urls import include, path
 api_urlpatterns = [
     path('', include(('appointment_system.user.urls', 'user'), namespace='user')),
     path('', include(('appointment_system.patient.urls', 'patient'), namespace='patient')),
+    path('', include(('appointment_system.doctor.urls', 'doctor'), namespace='doctor')),
 ]
 urlpatterns = [
     path('admin/', admin.site.urls),

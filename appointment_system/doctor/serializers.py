@@ -1,29 +1,27 @@
 from rest_framework import serializers
 
-from appointment_system.patient.models import (
-    PatientContacts, PatientProfile)
+from appointment_system.doctor.models import DoctorProfile, DoctorContacts
 
-class PatientProfileSerializer(serializers.ModelSerializer):
+class DoctorProfileSerializer(serializers.ModelSerializer):
     """
-    Serializer for the PatientProfile model.
+    Serializer for the DoctorProfile model.
     """
     class Meta:
-        model = PatientProfile
+        model = DoctorProfile
         fields = '__all__'
-        read_only_fields = ['id']
+        read_only_fields = ('id', 'user')
         extra_kwargs = {
             'user': {'required': True},
             'identifier': {'required': True},
             'identifier_type': {'required': True},
         }
 
-
-class PatientContactSerializer(serializers.ModelSerializer):
+class DoctorContactSerializer(serializers.ModelSerializer):
     """
     Serializer for the Contacts model.
     """
     class Meta:
-        model = PatientContacts
+        model = DoctorContacts
         fields = '__all__'
         read_only_fields = ['id']
         extra_kwargs = {

@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 CONTACT_TYPE = (
@@ -19,7 +17,7 @@ class AbstractBaseModel(models.Model):
         abstract = True
 
 
-class Contacts(AbstractBaseModel):
+class AbstractContacts(AbstractBaseModel):
     """
     Model representing a contact.
     """
@@ -29,10 +27,9 @@ class Contacts(AbstractBaseModel):
     is_confirmed = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_suspended = models.BooleanField(default=False)
-    contact_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, related_name='contacts')
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('contact_type', 'object_id')
 
     def __str__(self):
         return self.contact_value
+
+    class Meta:
+        abstract = True

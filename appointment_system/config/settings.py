@@ -45,7 +45,9 @@ EXTERNAL_APPS = [
 ]
 
 LOCAL_APPS = [
-    'appointment_user',
+    'appointment_system.user',
+    'appointment_system.patient',
+    'appointment_system.common',
 ]
 
 INSTALLED_APPS = [
@@ -152,4 +154,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'appointment_user.AppointmentUser'
+AUTH_USER_MODEL = 'user.AppointmentUser'

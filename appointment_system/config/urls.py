@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 api_urlpatterns = [
-    path('', include(('appointment_user.urls', 'appointment_user'), namespace='appointment_user')),
+    path('', include(('appointment_system.user.urls', 'user'), namespace='user')),
+    path('', include(('appointment_system.patient.urls', 'patient'), namespace='patient')),
 ]
 urlpatterns = [
     path('admin/', admin.site.urls),

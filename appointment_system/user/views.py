@@ -1,8 +1,8 @@
 from rest_framework import viewsets, permissions
 from rest_framework.authentication import TokenAuthentication
 
-from appointment_user.models import AppointmentUser
-from appointment_user.serializers import AppointmentUserSerializer
+from appointment_system.user.models import AppointmentUser
+from appointment_system.user.serializers import AppointmentUserSerializer
 
 class AppointmentUserViewSet(viewsets.ModelViewSet):
     """

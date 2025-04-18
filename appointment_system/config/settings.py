@@ -49,6 +49,7 @@ LOCAL_APPS = [
     'appointment_system.patient',
     'appointment_system.common',
     'appointment_system.doctor',
+    'appointment_system.scheduling',
 ]
 
 INSTALLED_APPS = [

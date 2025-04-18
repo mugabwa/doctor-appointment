@@ -21,6 +21,7 @@ api_urlpatterns = [
     path('', include(('appointment_system.user.urls', 'user'), namespace='user')),
     path('', include(('appointment_system.patient.urls', 'patient'), namespace='patient')),
     path('', include(('appointment_system.doctor.urls', 'doctor'), namespace='doctor')),
+    path('', include(('appointment_system.scheduling.urls', 'scheduling'), namespace='scheduling')),
 ]
 urlpatterns = [
     path('admin/', admin.site.urls),

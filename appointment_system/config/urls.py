@@ -26,4 +26,5 @@ api_urlpatterns = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include((api_urlpatterns, 'v1'), namespace='v1')),
+    path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]

@@ -1,5 +1,8 @@
 from rest_framework import viewsets, permissions
 
+from appointment_system.common.permissions import (
+    IsAdminOrDoctorUser, IsAdminOrReceptionistUser,
+    IsPatientUser)
 from appointment_system.scheduling.models import AppointmentScheduler
 from appointment_system.scheduling.serializers import AppointmentSerializer
 
@@ -9,7 +12,7 @@ class AppointmentSchedulerViewSet(viewsets.ModelViewSet):
     """
     queryset = AppointmentScheduler.objects.all()
     serializer_class = AppointmentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsPatientUser, IsAdminOrDoctorUser, IsAdminOrReceptionistUser]
 
     def get_queryset(self):
         """

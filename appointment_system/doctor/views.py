@@ -1,3 +1,4 @@
+from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from rest_framework import viewsets
 
 from appointment_system.common.permissions import (
@@ -14,6 +15,7 @@ class DoctorProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = DoctorProfile.objects.all()
     serializer_class = DoctorProfileSerializer
+    authentication_classes = [OAuth2Authentication]
     permission_classes = [IsAdminOrDoctorUser, IsDoctorUser]
 
     def get_queryset(self):
@@ -34,5 +36,6 @@ class DoctorContactViewSet(viewsets.ModelViewSet):
     """
     queryset = DoctorContacts.objects.all()
     serializer_class = DoctorContactSerializer
+    authentication_classes = [OAuth2Authentication]
     permission_classes = [IsAdminOrDoctorUser, IsDoctorUser]
     filterset_fields = ['user__first_name', 'user__last_name', 'identifier']

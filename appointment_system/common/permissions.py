@@ -78,3 +78,21 @@ class IsAdminOrReceptionistUser(HasRolePermission):
 
     def has_permission(self, request, view):
         return super().has_permission(request, view)
+
+
+class IsAdminOrSelf(BasePermission):
+    """
+    Custom permission to check if the user is an admin or the object owner.
+    """
+    def has_permission(self, request, view):
+        # Check if the user is authenticated
+        if not request.user.is_authenticated:
+            return False
+
+        # Check if the user is an admin
+        if request.user.role and request.user.role.name == 'ADMIN':
+            return True
+
+        # Check if the user is the object owner
+        obj = view.get_object()
+        return obj == request.user

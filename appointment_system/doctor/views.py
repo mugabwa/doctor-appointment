@@ -1,5 +1,7 @@
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
+from appointment_system.common.permissions import (
+    IsDoctorUser, IsAdminOrDoctorUser)
 from appointment_system.doctor.models import (
     DoctorContacts, DoctorProfile)
 from appointment_system.doctor.serializers import (
@@ -12,7 +14,7 @@ class DoctorProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = DoctorProfile.objects.all()
     serializer_class = DoctorProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAdminOrDoctorUser, IsDoctorUser]
 
     def get_queryset(self):
         """
@@ -32,5 +34,5 @@ class DoctorContactViewSet(viewsets.ModelViewSet):
     """
     queryset = DoctorContacts.objects.all()
     serializer_class = DoctorContactSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAdminOrDoctorUser, IsDoctorUser]
     filterset_fields = ['user__first_name', 'user__last_name', 'identifier']

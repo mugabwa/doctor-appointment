@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
+from appointment_system.common.permissions import IsPatientUser
 from appointment_system.patient.models import (
     PatientContacts, PatientProfile)
 from appointment_system.patient.serializers import (
@@ -13,7 +13,7 @@ class PatientProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = PatientProfile.objects.all()
     serializer_class = PatientProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsPatientUser]
     authentication_classes = [TokenAuthentication]
     filterset_fields = ['user__first_name', 'user__last_name', 'identifier']
 
@@ -24,6 +24,6 @@ class PatientContactViewSet(viewsets.ModelViewSet):
     """
     queryset = PatientContacts.objects.all()
     serializer_class = PatientContactSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsPatientUser]
     authentication_classes = [TokenAuthentication]
     filterset_fields = ['user__first_name', 'user__last_name', 'identifier']

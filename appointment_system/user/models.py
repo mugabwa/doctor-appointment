@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser, BaseUserManager, PermissionsMixin)
 
 USER_ROLES = (
     ('DOCTOR', 'Doctor'),
@@ -43,7 +44,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class AppointmentUser(AbstractBaseUser):
+class AppointmentUser(AbstractBaseUser, PermissionsMixin):
     """
     A model to hold the user information for the appointment system.
     """
@@ -53,7 +54,7 @@ class AppointmentUser(AbstractBaseUser):
     other_names = models.CharField(
         max_length=255, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    role = models.CharField(
+    user_type = models.CharField(
         max_length=50, choices=USER_ROLES, default='PATIENT'
     )
     gender = models.CharField(
@@ -61,6 +62,10 @@ class AppointmentUser(AbstractBaseUser):
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    role = models.ForeignKey(
+        'Role', on_delete=models.SET_NULL, null=True, blank=True, related_name='users'
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -69,3 +74,25 @@ class AppointmentUser(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+
+
+class Role(models.Model):
+    """
+    A model containing the roles assigned to each user.
+    """
+    name = models.CharField(max_length=255, unique=True)
+    permissions = models.ManyToManyField('Permission', blank=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class Permission(models.Model):
+    """
+    A model containing the permissions assigned to each role.
+    """
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
